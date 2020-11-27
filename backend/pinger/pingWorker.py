@@ -2,7 +2,10 @@
 
 from pythonping import ping
 from prometheus_client import start_http_server, Histogram
-import setInterval 
+from backend.pinger.setInterval import setInterval
+
+target = ''
+h = Histogram('ping_latency_miliseconds', 'Time it takes to get a ping reponse for target')
 
 def set_interval(func, sec):
     def func_wrapper():
@@ -20,12 +23,12 @@ def doOnePing(target):
         h.observe(response.time_elapsed_ms)
         print(response.time_elapsed_ms)
 
-def pingTarget1():
-    doOnePing('192.168.0.2')
+def pingTarget():
+    doOnePing(target)
 
-if __name__ == '__main__':
-    h = Histogram('ping_latency_miliseconds', 'Time it takes to get a ping reponse for target')
+def startWorker(host):
+    target = host
     # Start up the server to expose the metrics.
-    start_http_server(8000)
+    start_http_server(9999)
     # Generate some requests.
-    setInterval.setInterval(0.5,pingTarget1)
+    setInterval(0.5, pingTarget)
