@@ -28,7 +28,5 @@ def pingTarget():
 
 def startWorker(host):
     target = host
-    # Start up the server to expose the metrics.
-    start_http_server(9999)
     # Generate some requests.
     setInterval(0.5, pingTarget)

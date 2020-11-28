@@ -1,0 +1,39 @@
+version: "3.3"
+
+services: 
+  pingmetrics-backend:
+    build: .
+    container_name: pingmetrics-backend # the container name is changed prometheus.yml should be changed aswell
+    #restart: unless-stopped
+    ports:
+     - "10501:8000" # api
+     - "10502:8001" # metrics (optional)
+  pingmetrics-prometheus:
+      image: prom/prometheus
+      user: "1000:1000"
+      container_name: pingmetrics-prometheus
+      #restart: unless-stopped
+      ports:
+      - "10503:9090"
+      volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/data:/prometheus
+      command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=9001d"
+      - "--web.enable-admin-api"
+  pingmetrics-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: pingmetrics-frontend
+    #restart: unless-stopped
+    ports:
+     - "10504:80" # api
+
+
+
+  

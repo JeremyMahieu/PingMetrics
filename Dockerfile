@@ -1,14 +1,19 @@
 FROM python:3
 
-EXPOSE 8000
+# Needed for printing of flask app to work
+ENV FLASK_ENV="production" \
+    PYTHONUNBUFFERED="true"
 
-RUN pip install prometheus_client pythonping flask flask_cors
+EXPOSE 8000
+EXPOSE 8001
+
+RUN pip install prometheus_client \
+    pythonping \
+    flask \
+    flask_cors
 
 ADD backend /backend
 
-# Needed for printing of flask app to work
-ARG FLASK_ENV="production"
-ENV FLASK_ENV="${FLASK_ENV}" \
-    PYTHONUNBUFFERED="true"
+
 
 CMD [ "python", "-u", "/backend/api/pingerApi.py" ]
