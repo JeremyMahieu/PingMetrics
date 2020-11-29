@@ -8,6 +8,7 @@ services:
     ports:
      - "10501:8000" # api
      - "10502:8001" # metrics (optional)
+
   pingmetrics-prometheus:
       image: prom/prometheus
       user: "1000:1000"
@@ -25,6 +26,7 @@ services:
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=9001d"
       - "--web.enable-admin-api"
+
   pingmetrics-frontend:
     build:
       context: .

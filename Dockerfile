@@ -10,7 +10,8 @@ EXPOSE 8001
 RUN pip install prometheus_client \
     pythonping \
     flask \
-    flask_cors
+    flask_cors \
+    flask-marshmallow
 
 ADD backend /backend
 
