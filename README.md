@@ -1,5 +1,7 @@
 # PingMetrics
-PingMetrics is a python application that pings to one or more targets and exposes the results in a metrics file. This file is read by prometheus. Configuration can be done and results can be seen in an Angular web interface.
+**🚧 This project is not ready 🚧**
+
+PingMetrics is a python application that pings to one or more targets and exposes the results in a metrics file. These metrics are read by prometheus. Configuration can be done and results can be seen in an Angular web interface.
 
 ## Prerequisits
 * Docker
